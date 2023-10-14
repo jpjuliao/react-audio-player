@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import toggleDarkTheme from './theme';
 import './App.css';
 
