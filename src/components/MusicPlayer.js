@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null;
+  const audioRef = useRef(null);
 
   const songs = [
     {
