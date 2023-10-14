@@ -1,61 +1,81 @@
-import React, { useState } from 'react';
-import MusicPlayer from './components/MusicPlayer';
-import PlaylistManager from './components/PlaylistManager';
+import React, { useEffect } from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
+import toggleDarkTheme from './theme';
 import './App.css';
-import {
-  AppBar, Toolbar, Tabs, Tab,
-} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import QueueMusicIcon from '@mui/icons-material/QueueMusic';
-import SettingsIcon from '@mui/icons-material/Settings';
-import StyleIcon from '@mui/icons-material/Style';
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function Playlists() {
+  return (
+    <div>
+      <h2>Playlists</h2>
+      {/* Add PlaylistManager component or content here */}
+    </div>
+  );
+}
+
+function Settings() {
+  return <h2>Settings</h2>;
+}
+
+function MusicPlayer() {
+  // Add your MusicPlayer component content here
+  return (
+    <div>
+      <h2>Music Player</h2>
+      {/* Your music player UI and controls go here */}
+    </div>
+  );
+}
 
 function App() {
-	  const [playlists, setPlaylists] = useState([]);
+  useEffect(() => {
+    const darkThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-	  const handlePlaylistCreate = (playlistName) => {
-		      setPlaylists([...playlists, { name: playlistName, tracks: [] }]);
-		    };
+    const handleColorSchemeChange = (e) => toggleDarkTheme(e.matches);
+    darkThemeQuery.addEventListener('change', handleColorSchemeChange);
 
-	  const handlePlaylistEdit = (index, track) => {
-		      const updatedPlaylists = [...playlists];
-		      updatedPlaylists[index].tracks.push(track);
-		      setPlaylists(updatedPlaylists);
-		    };
+    toggleDarkTheme(darkThemeQuery.matches);
 
-	  const handlePlaylistDelete = (index) => {
-		      const updatedPlaylists = [...playlists];
-		      updatedPlaylists.splice(index, 1);
-		      setPlaylists(updatedPlaylists);
-		    };
+    return () => darkThemeQuery.removeEventListener('change', handleColorSchemeChange);
+  }, []);
 
-	  return (
-  <div className="App">
-    <AppBar position="static">
-      <Toolbar>
-        <Tabs
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab label="Home" icon={<HomeIcon />} />
-          <Tab label="Playlists" icon={<QueueMusicIcon />} />
-          <Tab label="Settings" icon={<SettingsIcon />} />
-          <Tab label="Style" icon={<StyleIcon />} />
-        </Tabs>
-      </Toolbar>
-    </AppBar>
-
-    <MusicPlayer />
-    <PlaylistManager
-      playlists={playlists}
-      onPlaylistCreate={handlePlaylistCreate}
-      onPlaylistEdit={handlePlaylistEdit}
-      onPlaylistDelete={handlePlaylistDelete}
-    />
-  </div>
-		    );
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>AudioPlayer</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/playlists">Playlists</Link>
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Switch>
+        <Route path="/playlists">
+          <Playlists />
+        </Route>
+        <Route path="/settings">
+          <Settings />
+        </Route>
+        <Route path="/music">
+          <MusicPlayer />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;
