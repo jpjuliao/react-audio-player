@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import toggleDarkTheme from './theme';
-import './App.css';
+import React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function Home() {
   return <h2>Home</h2>;
@@ -31,17 +29,6 @@ function MusicPlayer() {
 }
 
 function App() {
-  useEffect(() => {
-    const darkThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const handleColorSchemeChange = (e) => toggleDarkTheme(e.matches);
-    darkThemeQuery.addEventListener('change', handleColorSchemeChange);
-
-    toggleDarkTheme(darkThemeQuery.matches);
-
-    return () => darkThemeQuery.removeEventListener('change', handleColorSchemeChange);
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header">
@@ -60,20 +47,12 @@ function App() {
           </ul>
         </nav>
       </header>
-      <Switch>
-        <Route path="/playlists">
-          <Playlists />
-        </Route>
-        <Route path="/settings">
-          <Settings />
-        </Route>
-        <Route path="/music">
-          <MusicPlayer />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/playlists" element={<Playlists />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/music" element={<MusicPlayer />} />
+      </Routes>
     </div>
   );
 }
