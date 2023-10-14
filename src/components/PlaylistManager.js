@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-function PlaylistManager({ playlists, onPlaylistCreate, onPlaylistEdit, onPlaylistDelete }) {
+function PlaylistManager({
+  playlists, onPlaylistCreate, onPlaylistEdit, onPlaylistDelete,
+}) {
   const [newPlaylistName, setNewPlaylistName] = useState('');
 
   const handleCreatePlaylist = () => {

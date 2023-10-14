@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import MusicPlayer from './components/MusicPlayer';
 import PlaylistManager from './components/PlaylistManager';
 import './App.css';
-import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
+import {
+  AppBar, Toolbar, Tabs, Tab,
+} from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -28,31 +30,31 @@ function App() {
 		    };
 
 	  return (
-		      <div className="App">
-		        <AppBar position="static">
-		          <Toolbar>
-		            <Tabs
-		              indicatorColor="primary"
-		              textColor="primary"
-		              variant="scrollable"
-		              scrollButtons="auto"
-		            >
-		              <Tab label="Home" icon={<HomeIcon />} />
-		              <Tab label="Playlists" icon={<QueueMusicIcon />} />
-		              <Tab label="Settings" icon={<SettingsIcon />} />
-		              <Tab label="Style" icon={<StyleIcon />} />
-		            </Tabs>
-		          </Toolbar>
-		        </AppBar>
+  <div className="App">
+    <AppBar position="static">
+      <Toolbar>
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Home" icon={<HomeIcon />} />
+          <Tab label="Playlists" icon={<QueueMusicIcon />} />
+          <Tab label="Settings" icon={<SettingsIcon />} />
+          <Tab label="Style" icon={<StyleIcon />} />
+        </Tabs>
+      </Toolbar>
+    </AppBar>
 
-		        <MusicPlayer />
-		        <PlaylistManager
-		          playlists={playlists}
-		          onPlaylistCreate={handlePlaylistCreate}
-		          onPlaylistEdit={handlePlaylistEdit}
-		          onPlaylistDelete={handlePlaylistDelete}
-		        />
-		      </div>
+    <MusicPlayer />
+    <PlaylistManager
+      playlists={playlists}
+      onPlaylistCreate={handlePlaylistCreate}
+      onPlaylistEdit={handlePlaylistEdit}
+      onPlaylistDelete={handlePlaylistDelete}
+    />
+  </div>
 		    );
 }
 
