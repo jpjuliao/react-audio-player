@@ -1,25 +1,59 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import MusicPlayer from './components/MusicPlayer';
+import PlaylistManager from './components/PlaylistManager';
 import './App.css';
+import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import SettingsIcon from '@mui/icons-material/Settings';
+import StyleIcon from '@mui/icons-material/Style';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	  const [playlists, setPlaylists] = useState([]);
+
+	  const handlePlaylistCreate = (playlistName) => {
+		      setPlaylists([...playlists, { name: playlistName, tracks: [] }]);
+		    };
+
+	  const handlePlaylistEdit = (index, track) => {
+		      const updatedPlaylists = [...playlists];
+		      updatedPlaylists[index].tracks.push(track);
+		      setPlaylists(updatedPlaylists);
+		    };
+
+	  const handlePlaylistDelete = (index) => {
+		      const updatedPlaylists = [...playlists];
+		      updatedPlaylists.splice(index, 1);
+		      setPlaylists(updatedPlaylists);
+		    };
+
+	  return (
+		      <div className="App">
+		        <AppBar position="static">
+		          <Toolbar>
+		            <Tabs
+		              indicatorColor="primary"
+		              textColor="primary"
+		              variant="scrollable"
+		              scrollButtons="auto"
+		            >
+		              <Tab label="Home" icon={<HomeIcon />} />
+		              <Tab label="Playlists" icon={<QueueMusicIcon />} />
+		              <Tab label="Settings" icon={<SettingsIcon />} />
+		              <Tab label="Style" icon={<StyleIcon />} />
+		            </Tabs>
+		          </Toolbar>
+		        </AppBar>
+
+		        <MusicPlayer />
+		        <PlaylistManager
+		          playlists={playlists}
+		          onPlaylistCreate={handlePlaylistCreate}
+		          onPlaylistEdit={handlePlaylistEdit}
+		          onPlaylistDelete={handlePlaylistDelete}
+		        />
+		      </div>
+		    );
 }
 
 export default App;
