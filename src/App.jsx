@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import toggleDarkTheme from './theme';
 import './App.css';
+import CustomConsole from './components/CustomConsole';
 
 function Home() {
   return <h2>Home</h2>;
@@ -66,6 +67,7 @@ function App() {
         <Route path="/music" element={<MusicPlayer />} />
         <Route path="/" element={<Home />} />
       </Routes>
+	<CustomConsole />
     </div>
   );
 }

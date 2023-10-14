@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     // Add custom rules here:
-    // Example: 'no-console': 'off' to allow console statements
+    // Example: 'no-console': 'off' to allow console statements.
+    "indent": ["error", 2]
   },
 };;
