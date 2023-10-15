@@ -67,7 +67,7 @@ function App() {
         <Route path="/music" element={<MusicPlayer />} />
         <Route path="/" element={<Home />} />
       </Routes>
-	<CustomConsole />
+      <CustomConsole />
     </div>
   );
 }
