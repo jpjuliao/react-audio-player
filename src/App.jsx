@@ -1,73 +1,56 @@
-import React, { useEffect } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
-import toggleDarkTheme from './theme';
-import './App.css';
-import CustomConsole from './components/CustomConsole';
-
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function Playlists() {
-  return (
-    <div>
-      <h2>Playlists</h2>
-      {/* Add PlaylistManager component or content here */}
-    </div>
-  );
-}
-
-function Settings() {
-  return <h2>Settings</h2>;
-}
-
-function MusicPlayer() {
-  // Add your MusicPlayer component content here
-  return (
-    <div>
-      <h2>Music Player</h2>
-      {/* Your music player UI and controls go here */}
-    </div>
-  );
-}
+import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import MusicPlayer from './components/MusicPlayer';
+import PlaylistManager from './components/PlaylistManager';
+import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import SettingsIcon from '@mui/icons-material/Settings';
+import StyleIcon from '@mui/icons-material/Style';
 
 function App() {
-  useEffect(() => {
-    const darkThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const [playlists, setPlaylists] = useState([]);
 
-    const handleColorSchemeChange = (e) => toggleDarkTheme(e.matches);
-    darkThemeQuery.addEventListener('change', handleColorSchemeChange);
+  const handlePlaylistCreate = (playlistName) => {
+    setPlaylists([...playlists], { name: playlistName, tracks: [] });
+  };
 
-    toggleDarkTheme(darkThemeQuery.matches);
+  const handlePlaylistEdit = (index, track) => {
+    const updatedPlaylists = [...playlists];
+    updatedPlaylists[index].tracks.push(track);
+    setPlaylists(updatedPlaylists);
+  };
 
-    return () => darkThemeQuery.removeEventListener('change', handleColorSchemeChange);
-  }, []);
+  const handlePlaylistDelete = (index) => {
+    const updatedPlaylists = [...playlists];
+    updatedPlaylists.splice(index, 1);
+    setPlaylists(updatedPlaylists);
+  };
 
   return (
     <div className="App">
-      <CustomConsole />
-      <header className="App-header">
-        <h1>AudioPlayer</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/playlists">Playlists</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <Routes>
-        <Route path="/playlists" element={<Playlists />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/music" element={<MusicPlayer />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <AppBar position="static">
+        <Toolbar>
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
+            <Tab label="Home" icon={<HomeIcon />} />
+            <Tab label="Playlists" icon={<QueueMusicIcon />} />
+            <Tab label="Settings" icon={<SettingsIcon />} />
+            <Tab label="Style" icon={<StyleIcon />} />
+          </Tabs>
+        </Toolbar>
+      </AppBar>
+      <MusicPlayer />
+      <PlaylistManager
+        playlists={playlists}
+        onPlaylistCreate={handlePlaylistCreate}
+        onPlaylistEdit={handlePlaylistEdit}
+        onPlaylistDelete={handlePlaylistDelete}
+      />
     </div>
   );
 }

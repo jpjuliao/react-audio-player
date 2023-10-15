@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function PlaylistManager({
   playlists, onPlaylistCreate, onPlaylistEdit, onPlaylistDelete,
@@ -38,5 +39,12 @@ function PlaylistManager({
     </div>
   );
 }
+
+PlaylistManager.propTypes = {
+  onPlaylistCreate: PropTypes.func.isRequired,
+  onPlaylistEdit: PropTypes.func.isRequired,
+  onPlaylistDelete: PropTypes.func.isRequired,
+  playlists: PropTypes.array.isRequired,
+};
 
 export default PlaylistManager;
