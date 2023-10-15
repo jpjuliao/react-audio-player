@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import SettingsIcon from '@mui/icons-material/Settings';
 import StyleIcon from '@mui/icons-material/Style';
+import CustomConsole from './components/CustomConsole';
 
 function App() {
   const [playlists, setPlaylists] = useState([]);
@@ -51,6 +52,7 @@ function App() {
         onPlaylistEdit={handlePlaylistEdit}
         onPlaylistDelete={handlePlaylistDelete}
       />
+      <CustomConsole />
     </div>
   );
 }
