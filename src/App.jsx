@@ -45,6 +45,7 @@ function App() {
 
   return (
     <div className="App">
+      <CustomConsole />
       <header className="App-header">
         <h1>AudioPlayer</h1>
         <nav>
@@ -67,7 +68,6 @@ function App() {
         <Route path="/music" element={<MusicPlayer />} />
         <Route path="/" element={<Home />} />
       </Routes>
-      <CustomConsole />
     </div>
   );
 }
